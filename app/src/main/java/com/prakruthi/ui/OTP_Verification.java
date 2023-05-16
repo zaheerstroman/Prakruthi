@@ -47,15 +47,16 @@ public class OTP_Verification extends AppCompatActivity {
         pinview_4_digits = findViewById(R.id.pinview_4_digits);
         txt_enter_otp_sent_to.append(Variables.phoneNumber);
         btn_otp_submit.setOnClickListener(view -> {
-                   verifyOtp();
+            verifyOtp();
         });
         txt_re_send.setTextColor(Color.GRAY);
         txt_re_send.setOnClickListener(v -> {
             resendOtp();
         });
 
-                startTimer(60000, 1000);
+        startTimer(60000, 1000);
     }
+
     public void startTimer(final long finish, long tick) {
         txt_re_send.setEnabled(false);
         txt_re_send.setClickable(false);
@@ -66,6 +67,7 @@ public class OTP_Verification extends AppCompatActivity {
                 String stringTime = String.format("%02d:%02d", (remainedSecs / 60), (remainedSecs % 60));
                 tv_resend_otp_timer.setText(stringTime);// manage it according to you
             }
+
             public void onFinish() {
                 tv_resend_otp_timer.setText("00:00");
                 txt_re_send.setEnabled(true);
@@ -75,6 +77,7 @@ public class OTP_Verification extends AppCompatActivity {
             }
         }.start();
     }
+
     private void verifyOtp() {
         //Start ProgressBar first (Set visibility VISIBLE)
         btn_otp_submit.setVisibility(View.GONE);
@@ -91,11 +94,11 @@ public class OTP_Verification extends AppCompatActivity {
                 String[] data = new String[2];
                 data[0] = Variables.phoneNumber;
                 data[1] = pinview_4_digits.getValue();
-                PutData putData = new PutData(Variables.BaseUrl+"verifyOtp", "POST", field, data);
+                PutData putData = new PutData(Variables.BaseUrl + "verifyOtp", "POST", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
-                        Log.e(TAG, result );
+                        Log.e(TAG, result);
                         //End ProgressBar (Set visibility to GONE)
                         try {
                             JSONObject jsonObject = new JSONObject(result);
@@ -114,7 +117,7 @@ public class OTP_Verification extends AppCompatActivity {
                             } else {
                                 // handle the case where status code is false
                                 String message = jsonObject.getString("message");
-                                Toast.makeText(OTP_Verification.this, message , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OTP_Verification.this, message, Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -138,11 +141,11 @@ public class OTP_Verification extends AppCompatActivity {
                 field[0] = "mobile";
                 String[] data = new String[1];
                 data[0] = Variables.phoneNumber;
-                PutData putData = new PutData(Variables.BaseUrl+"resendOtp", "POST", field, data);
+                PutData putData = new PutData(Variables.BaseUrl + "resendOtp", "POST", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
-                        Log.e(TAG, result );
+                        Log.e(TAG, result);
                         //End ProgressBar (Set visibility to GONE)
                         try {
                             JSONObject jsonObject = new JSONObject(result);
@@ -153,7 +156,7 @@ public class OTP_Verification extends AppCompatActivity {
                             } else {
                                 // handle the case where status code is false
                                 String message = jsonObject.getString("message");
-                                Toast.makeText(OTP_Verification.this, message , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OTP_Verification.this, message, Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

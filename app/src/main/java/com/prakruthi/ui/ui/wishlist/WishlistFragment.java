@@ -22,9 +22,10 @@ public class WishlistFragment extends Fragment {
         binding = FragmentWishlistBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+//        final TextView textView = binding.textDashboard;
 
         return root;
+
     }
 
     @Override

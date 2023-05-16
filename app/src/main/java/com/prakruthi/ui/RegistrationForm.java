@@ -72,7 +72,6 @@ public class RegistrationForm extends AppCompatActivity {
         getFCMToken();
 
 
-
         // set an OnTouchListener to the root view
         View root = findViewById(android.R.id.content);
         root.setOnTouchListener(new View.OnTouchListener() {
@@ -101,10 +100,12 @@ public class RegistrationForm extends AppCompatActivity {
         backbtn.setOnClickListener(view -> {
             super.onBackPressed();
         });
+
         sendotp.setOnClickListener(view -> {
             state.setError(null);
             district.setError(null);
             type.setError(null);
+
             if (fullname.getText().toString().trim().isEmpty()) {
                 fullname.setError("Full name is required");
                 ObjectAnimator.ofFloat(fullname, "translationX", 0, -10, 10, -10, 10, -10, 10, -10, 10, 0).start();

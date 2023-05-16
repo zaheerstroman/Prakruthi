@@ -61,6 +61,9 @@ import java.util.function.Consumer;
 
 public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.DeliveryAddressListener , GetHomeDetails.OnDataFetchedListener {
 
+
+//    https://houseofspiritshyd.in/prakruthi/admin/api/getDashboardDetails
+//    data {[ category_list, banner_list, products_list
     public static RecyclerView addressRecyclerView;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
 
@@ -86,8 +89,13 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        //Home Delevery Address + Banner Slider Automatically
         SetScreenViews();
+
+        //Home Delevery Address
         GetDeliveryAddressDetails();
+
         View root = binding.getRoot();
         return root;
     }
@@ -106,6 +114,9 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
             binding.DeleverHomeLocation.setText("Choose Location");
         }
         else binding.DeleverHomeLocation.setText(Variables.address);
+
+// LinearLayout:----
+// Category 1st:-- Start under Home Delevery Location + Banner Slider Automatically ViewPager + Scroll Recyclerview Horizontal
         getHomeDetails();
     }
 
@@ -185,6 +196,8 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         });
     }
 
+
+    //Buttom Sheet:--
     private void chooseLocationDialog() {
         // Create the bottom sheet dialog
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
@@ -192,7 +205,9 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.choose_location_bottom_dialog, null);
 
         addressRecyclerView = dialogView.findViewById(R.id.choose_location_bottom_dialog_recycler);
+
         GetDeliveryAddressDetails();
+
         TextView CurrentLocation = dialogView.findViewById(R.id.choose_location_bottom_dialog_choose_current_location);
         CurrentLocation.setOnClickListener(v -> {
             if (IsGpsEnabled())
@@ -225,6 +240,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         binding.DeleverHomeLocation.setText(Variables.address);
     }
 
+    //CATEGORY:---- 2nd
     public void getHomeDetails()
     {
         binding.HomeCategoryRecyclerview.showShimmerAdapter();
@@ -240,6 +256,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         });
     }
 
+    //Banner Slider Automatically using ViewPager
     private final Handler handler = new Handler();
     private final Runnable runnable = new Runnable() {
         public void run() {
@@ -265,6 +282,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
     }
 
 
+//  GridLayoutManager(HomeProductsRecycler):------
     @Override
     public void onProductListFetched(List<HomeProductModel> homeProductModels) {
         requireActivity().runOnUiThread(() -> {

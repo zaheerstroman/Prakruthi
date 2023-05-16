@@ -33,6 +33,7 @@ public class HomeCategoryRecyclerAdaptor extends RecyclerView.Adapter<HomeCatego
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         HomeCategoryModal homeCategoryModal = homeCategoryModalList.get(position);
         holder.productTextView.setText(homeCategoryModal.getName());
         Glide.with(holder.itemView.getContext())

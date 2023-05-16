@@ -27,7 +27,7 @@
         />
 
     <TextView
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
         android:text="Plastic Glass"
         android:marqueeRepeatLimit="marquee_forever"
@@ -37,13 +37,15 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/_5sdp"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_15sdp"
         android:id="@+id/CartProductName"
         android:translationY="-8dp"
+
+        android:textStyle="bold"
         />
 
     <TextView
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
         android:text="Sub information"
         android:marqueeRepeatLimit="marquee_forever"
@@ -59,11 +61,11 @@
         android:layout_width="@dimen/_19sdp"
         android:layout_height="@dimen/_19sdp"
         android:layout_toEndOf="@id/CartProductSubInformation"
-        android:background="@drawable/baseline_circle_24"
+        android:background="@drawable/maines_group_187"
         android:backgroundTint="#6144AE53"
         android:text="-"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:id="@+id/CartProductMinus"
         />
 
@@ -78,6 +80,7 @@
         android:id="@+id/CartProductQuantity"
         />
 
+<!--    android:background="@drawable/baseline_circle_24"-->
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="@dimen/_19sdp"
         android:layout_height="@dimen/_19sdp"

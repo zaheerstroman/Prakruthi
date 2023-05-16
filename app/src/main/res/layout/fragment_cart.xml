@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/CART_TEXT"
-                android:layout_width="@dimen/_66sdp"
+                android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_below="@id/image_view_carticon"
                 android:layout_centerHorizontal="true"
