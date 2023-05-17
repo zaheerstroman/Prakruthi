@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.prakruthi.R;
-import com.prakruthi.ui.misc.Loading;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +31,7 @@ public class Login extends AppCompatActivity {
 
     CheckBox RememberMe;
 
+    ProgressDialog progress;
 
     // Get SharedPreferences object
     SharedPreferences sharedPreferences;
@@ -47,6 +47,13 @@ public class Login extends AppCompatActivity {
         RememberMe = findViewById(R.id.RememberMe);
         login = findViewById(R.id.login_btn);
 
+        // Progress
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please Wait...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER); // set the style to spinner
+        progress.setIndeterminate(true); // display a spinning progress circle animation
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
 
         sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 
@@ -57,6 +64,7 @@ public class Login extends AppCompatActivity {
             Api(username,password);
             return;
         }
+
 
         forget_password.setOnClickListener(view -> {
             startActivity(new Intent(Login.this, ForgetPassword.class));
@@ -84,7 +92,7 @@ public class Login extends AppCompatActivity {
     }
     public void Api(String usernameString,String passwordString)
     {
-        Loading.show(Login.this);
+        progress.show();
         login.setVisibility(View.INVISIBLE);
 
         // Execute the AsyncTask
@@ -139,10 +147,11 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Network Error", Toast.LENGTH_SHORT).show();
                 }
                 login.setVisibility(View.VISIBLE);
-                Loading.hide();
+                progress.dismiss();
             }
         }.execute();
     }
+
     public void getUserData(JSONObject ResultJson)
     {
         try {
@@ -216,7 +225,7 @@ public class Login extends AppCompatActivity {
             Variables.allowPush = allowPush;
 
             login.setVisibility(View.VISIBLE);
-            Loading.hide();
+            progress.dismiss();
             if (RememberMe.isChecked())
                 rememberMe();
             startActivity(new Intent(Login.this, HomeActivity.class));
@@ -231,7 +240,9 @@ public class Login extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+
     }
+
     public void rememberMe()
     {
         // Get SharedPreferences.Editor object

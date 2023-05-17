@@ -100,6 +100,7 @@ public class ForgetPassword extends AppCompatActivity {
             else
                 Toast.makeText(this, "Password Must Match", Toast.LENGTH_SHORT).show();
         });
+
         txt_re_send.setTextColor(Color.GRAY);
         txt_re_send.setOnClickListener(v -> {
             resendOtp();
@@ -134,6 +135,7 @@ public class ForgetPassword extends AppCompatActivity {
                                 Toast.makeText(ForgetPassword.this, message, Toast.LENGTH_SHORT).show();
                                 forget_password_relativelayout.setVisibility(View.GONE);
                                 otp_verification_relativelayout.setVisibility(View.VISIBLE);
+
                                 ForgetPassword.this.PhoneNumber = Phonenumber;
                                 txt_enter_otp_sent_to.append(Phonenumber);
                                 startTimer(60000,1000);
