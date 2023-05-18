@@ -43,6 +43,8 @@ public class ProfileFragment extends Fragment implements GetProfileDetails.OnPro
 //        GetProfileDetails();
     }
 
+    
+
 //    onProductListFetched
     //GetProfileDetails
     @Override

@@ -11,6 +11,8 @@
     >
 
 
+
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/card_back_btn"
         android:layout_width="@dimen/_36sdp"
