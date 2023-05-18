@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.ui.cart.CartFragment"
-        android:background="@drawable/cartbackground"
-        >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ui.cart.CartFragment"
+    android:background="@drawable/cartbackground">
 
 
         <RelativeLayout
@@ -30,7 +27,6 @@
                 android:layout_marginEnd="@dimen/_145sdp"
                 android:layout_marginRight="@dimen/_162sdp"
                 android:src="@drawable/cart_icon"
-
                 />
 
             <TextView
@@ -53,9 +49,119 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cart_RelativeLayout"
+            android:layout_above="@id/totalLayout"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/cartlistlayout" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:background="@drawable/custom_edit_text"
+        android:backgroundTint="@color/Secondary"
+        android:id="@+id/totalLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_80sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:id="@+id/Subtotal"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shipping fees"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:id="@+id/ShippingFee"
+                android:layout_below="@id/Subtotal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxes"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:id="@+id/Taxes"
+                android:layout_below="@id/ShippingFee"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total (including Tax)"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:id="@+id/Total"
+                android:layout_below="@id/Taxes"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3000"
+                android:textColor="@color/black"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:id="@+id/Subtotal_Price"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textColor="@color/black"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:id="@+id/ShippingFee_Price"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textColor="@color/black"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:id="@+id/Taxes_Price"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3100"
+                android:textColor="@color/black"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:id="@+id/Total_Price"/>
+        </LinearLayout>
 
     </RelativeLayout>
-</layout>
+
+</RelativeLayout>
