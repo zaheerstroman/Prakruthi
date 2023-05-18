@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class GetDeliveryAddressDetails extends AsyncTask<Void, Void, ArrayList<Address_BottomSheet_Recycler_Adaptor_Model>> {
+
+//    https://houseofspiritshyd.in/prakruthi/admin/api/getDeliveryAddressDetails
     private static final String URL = Variables.BaseUrl+"getDeliveryAddressDetails";
     private static final String[] FIELD = {"user_id", "token"};
     private static final String[] DATA = {String.valueOf(Variables.id), Variables.token};

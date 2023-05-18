@@ -14,6 +14,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class GetProductDetails {
+
+    //https://houseofspiritshyd.in/prakruthi/admin/api/getProductDetails
     private OnProductDataFetched mListener;
     private static String productId;
 

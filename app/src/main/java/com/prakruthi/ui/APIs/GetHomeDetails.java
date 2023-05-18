@@ -14,6 +14,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class GetHomeDetails {
+
+    //https://houseofspiritshyd.in/prakruthi/admin/api/getProductsList(Search in future) + getDashboardDetails both apis same
     private final OnDataFetchedListener mListener;
 
     public GetHomeDetails(OnDataFetchedListener listener) {

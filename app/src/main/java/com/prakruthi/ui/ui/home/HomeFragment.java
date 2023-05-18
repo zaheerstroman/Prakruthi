@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
 
 //    https://houseofspiritshyd.in/prakruthi/admin/api/getDashboardDetails
 //    data {[ category_list, banner_list, products_list
+
     public static RecyclerView addressRecyclerView;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
 
@@ -197,7 +198,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
     }
 
 
-    //Buttom Sheet:--
+    //Buttom Sheet Popup Dialogue Address as it is like Amazon:--
     private void chooseLocationDialog() {
         // Create the bottom sheet dialog
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
@@ -240,7 +241,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         binding.DeleverHomeLocation.setText(Variables.address);
     }
 
-    //CATEGORY:---- 2nd
+    //CATEGORY:---- 2nd(CircleImageView with Horizontal scroll)
     public void getHomeDetails()
     {
         binding.HomeCategoryRecyclerview.showShimmerAdapter();
@@ -256,7 +257,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         });
     }
 
-    //Banner Slider Automatically using ViewPager
+    //Banner Slider Automatically using ViewPager:-------
     private final Handler handler = new Handler();
     private final Runnable runnable = new Runnable() {
         public void run() {
@@ -282,7 +283,9 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
     }
 
 
-//  GridLayoutManager(HomeProductsRecycler):------
+//  GridLayoutManager(HomeProductsRecycler):---------------
+//    https://houseofspiritshyd.in/prakruthi/admin/api/getProductsList
+
     @Override
     public void onProductListFetched(List<HomeProductModel> homeProductModels) {
         requireActivity().runOnUiThread(() -> {

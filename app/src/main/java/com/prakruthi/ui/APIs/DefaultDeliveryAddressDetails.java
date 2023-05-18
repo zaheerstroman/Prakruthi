@@ -9,6 +9,8 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 public class DefaultDeliveryAddressDetails extends AsyncTask<String, Void, String> {
 
+//    https://houseofspiritshyd.in/prakruthi/admin/api/saveDeliveryAddressDetails
+//    https://houseofspiritshyd.in/prakruthi/admin/api/deleteDeliveryAddressDetails
     @Override
     protected String doInBackground(String... params) {
         //Creating array for parameters
