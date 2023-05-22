@@ -1,6 +1,10 @@
 package com.prakruthi.ui.APIs;
 
+import static com.google.firebase.messaging.Constants.TAG;
+
 import android.content.Context;
+import android.util.Log;
+
 import com.prakruthi.ui.Variables;
 import com.prakruthi.ui.ui.cart.CartModal;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -58,7 +62,7 @@ public class GetCartDetails {
                     JSONObject jsonResponse = new JSONObject(result);
 
                     JSONArray cartList = jsonResponse.getJSONArray("cart_data");
-
+                    CartModal.cartAmount = jsonResponse.getInt("cart_amount");
                     ArrayList<CartModal> cartModal = new ArrayList<>();
 
                     // Populate lists
@@ -94,7 +98,5 @@ public class GetCartDetails {
         void onCartListFetched(ArrayList<CartModal> cartModals);
         void onDataFetchError(String error);
     }
-
-
 
 }

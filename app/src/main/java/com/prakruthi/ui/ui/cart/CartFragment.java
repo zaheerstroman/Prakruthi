@@ -17,12 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.prakruthi.databinding.FragmentCartBinding;
 import com.prakruthi.ui.APIs.AddToCart;
+import com.prakruthi.ui.APIs.DeleteCartDetails;
 import com.prakruthi.ui.APIs.GetCartDetails;
 import com.prakruthi.ui.misc.Loading;
 
 import java.util.ArrayList;
 
-public class CartFragment extends Fragment implements GetCartDetails.OnDataFetchedListener , AddToCart.OnDataFetchedListner {
+public class CartFragment extends Fragment implements GetCartDetails.OnDataFetchedListener , AddToCart.OnDataFetchedListner , DeleteCartDetails.OnCartItemDeleteAPiHit {
 
     private FragmentCartBinding binding;
 
@@ -77,7 +78,9 @@ public class CartFragment extends Fragment implements GetCartDetails.OnDataFetch
             requireActivity().runOnUiThread(() -> {
                 binding.cartRecyclerviewList.hideShimmerAdapter();
                 binding.cartRecyclerviewList.setLayoutManager(new LinearLayoutManager(requireContext()));
-                binding.cartRecyclerviewList.setAdapter(new CartRecyclerAdaptor(requireContext(),cartModals,this));
+                binding.cartRecyclerviewList.setAdapter(new CartRecyclerAdaptor(requireContext(),cartModals,this, this));
+                binding.SubtotalPrice.setText(String.valueOf(CartModal.cartAmount));
+
             });
         }
         catch (Exception e)
@@ -91,6 +94,8 @@ public class CartFragment extends Fragment implements GetCartDetails.OnDataFetch
     public void onDataFetchError(String error) {
         requireActivity().runOnUiThread(()->{
             binding.cartRecyclerviewList.hideShimmerAdapter();
+            binding.NesterScrollViewCart.setVisibility(View.GONE);
+            binding.CheckoutButton.setVisibility(View.GONE);
             Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show();
         });
     }
@@ -118,6 +123,24 @@ public class CartFragment extends Fragment implements GetCartDetails.OnDataFetch
         requireActivity().runOnUiThread(() -> {
             Loading.hide();
             Toast.makeText(requireContext(), Error, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    @Override
+    public void OnCartItemDeleted(String message) {
+        requireActivity().runOnUiThread(() -> {
+            Loading.hide();
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            getCartDetails();
+        });
+    }
+
+    @Override
+    public void OnCartItemDeleteAPiGivesError(String error) {
+        requireActivity().runOnUiThread(() -> {
+            Loading.hide();
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
+            getCartDetails();
         });
     }
 }

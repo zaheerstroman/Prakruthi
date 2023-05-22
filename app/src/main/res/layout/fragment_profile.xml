@@ -1,41 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/_5sdp"
+    android:layout_height="wrap_content"
     android:background="@drawable/profile_backgound"
-    tools:context=".ui.ui.profile.ProfileFragment"
-
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.ui.profile.ProfileFragment"
+        >
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/card_back_btn"
-        android:layout_width="@dimen/_36sdp"
-        android:layout_height="@dimen/_26sdp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@drawable/baseline_arrow_back_24" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/card_back_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:gravity="center"
-        android:text="ID : #2256291"
-        android:textSize="@dimen/_30sdp" />
-
-<!--    <androidx.core.widget.NestedScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_below="@+id/txt_id">-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_110sdp"
+            android:gravity="center"
+            android:text="ID : #2256291"
+            android:textSize="@dimen/_30sdp" />
 
         <LinearLayout
             android:id="@+id/layout_all"
@@ -86,8 +72,6 @@
 
                 android:translationY="-4dp" />
 
-            <!--        android:gravity="center_vertical"-->
-            <!--        android:layout_gravity="center_vertical"-->
             <TextView
                 android:id="@+id/tv_my_wishlist"
                 android:layout_width="wrap_content"
@@ -104,7 +88,6 @@
                 android:textAlignment="center"
                 android:textSize="@dimen/_10sdp"
                 android:translationY="-4dp" />
-
 
             <TextView
                 android:id="@+id/tv_payments"
@@ -123,31 +106,6 @@
                 android:textSize="@dimen/_10sdp"
                 android:translationY="-4dp" />
 
-
-            <!--        OR       -->
-
-            <!--        <ImageView-->
-            <!--            android:id="@+id/iv_my_payments"-->
-            <!--            android:layout_width="@dimen/_30sdp"-->
-            <!--            android:layout_height="@dimen/_30sdp"-->
-            <!--            android:layout_centerVertical="true"-->
-            <!--            android:layout_marginStart="@dimen/_50sdp"-->
-            <!--            android:layout_marginEnd="@dimen/_5sdp"-->
-            <!--            android:layout_toEndOf="@id/iv_my_wishlist"-->
-            <!--            android:backgroundTint="#6144AE53"-->
-            <!--            android:src="@drawable/payments_vector" />-->
-
-            <!--        <TextView-->
-            <!--            android:id="@+id/tv_payments"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_centerVertical="true"-->
-            <!--            android:layout_marginStart="@dimen/_5sdp"-->
-            <!--            android:layout_toEndOf="@id/tv_my_wishlist"-->
-            <!--            android:layout_below="@id/iv_my_payments"-->
-            <!--            android:text="My Payments"-->
-            <!--            android:textSize="@dimen/_10sdp" />-->
-
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -159,7 +117,6 @@
             android:gravity="center"
             android:text="Services"
             android:textSize="@dimen/_30sdp"
-
 
             />
 
@@ -212,8 +169,6 @@
 
                 android:translationY="-4dp" />
 
-            <!--        android:gravity="center_vertical"-->
-            <!--        android:layout_gravity="center_vertical"-->
             <TextView
                 android:id="@+id/tv_privacy_policy"
                 android:layout_width="wrap_content"
@@ -230,7 +185,6 @@
                 android:textAlignment="center"
                 android:textSize="@dimen/_10sdp"
                 android:translationY="-4dp" />
-
 
             <TextView
                 android:id="@+id/tv_About_us"
@@ -249,7 +203,6 @@
                 android:textSize="@dimen/_10sdp"
                 android:translationY="-4dp" />
 
-
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -257,40 +210,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_all_2"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
             android:text="Recent Products"
             android:textColor="@color/Primary"
             android:textSize="@dimen/_20sdp"
-
-
             />
 
-        <!--    android:layout_toRightOf="@+id/tv_recent_Products"-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_view_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_all_2"
             android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:foregroundGravity="right"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
             android:text="View All"
             android:textColor="@color/Green"
             android:textSize="@dimen/_20sdp" />
-
 
         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
             android:id="@+id/ProfileHomeProductsRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_view_all"
-            android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:shimmer_demo_child_count="10"
             app:shimmer_demo_layout="@layout/homepage_product_recycle_view_loading"
@@ -299,13 +243,5 @@
             tools:itemCount="10"
             tools:listitem="@layout/homepage_product_recycle_view" />
 
-
-
-<!--    </androidx.core.widget.NestedScrollView>-->
-
-
-</RelativeLayout>
-
-
-
-
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

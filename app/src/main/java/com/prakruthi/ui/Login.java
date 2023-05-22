@@ -1,6 +1,8 @@
 package com.prakruthi.ui;
 import static android.content.ContentValues.TAG;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -118,6 +120,7 @@ public class Login extends AppCompatActivity {
                 return null;
             }
 
+            @SuppressLint("StaticFieldLeak")
             @Override
             protected void onPostExecute(String result) {
                 if (result != null) {
@@ -136,6 +139,10 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                             username.setError("Invalid");
                             password.setError("Invalid");
+                            ObjectAnimator.ofFloat(username, "translationX", 0, -10, 10, -10, 10, -10, 10, -10, 10, 0).start();
+                            username.requestFocus();
+                            ObjectAnimator.ofFloat(password, "translationX", 0, -10, 10, -10, 10, -10, 10, -10, 10, 0).start();
+                            password.requestFocus();
                         }
 
                     } catch (JSONException e) {

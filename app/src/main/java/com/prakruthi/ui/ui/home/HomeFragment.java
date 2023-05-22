@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +43,7 @@ import com.prakruthi.R;
 import com.prakruthi.databinding.FragmentHomeBinding;
 import com.prakruthi.ui.APIs.GetDeliveryAddressDetails;
 import com.prakruthi.ui.APIs.GetHomeDetails;
+import com.prakruthi.ui.APIs.GetProductsList;
 import com.prakruthi.ui.Variables;
 import com.prakruthi.ui.misc.Loading;
 import com.prakruthi.ui.ui.home.address.Address_BottomSheet_Recycler_Adaptor;
@@ -52,6 +54,7 @@ import com.prakruthi.ui.ui.home.category.HomeCategoryModal;
 import com.prakruthi.ui.ui.home.category.HomeCategoryRecyclerAdaptor;
 import com.prakruthi.ui.ui.home.products.HomeProductAdaptor;
 import com.prakruthi.ui.ui.home.products.HomeProductModel;
+import com.prakruthi.ui.ui.search.SearchPage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,16 +62,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.DeliveryAddressListener , GetHomeDetails.OnDataFetchedListener {
-
-
-//    https://houseofspiritshyd.in/prakruthi/admin/api/getDashboardDetails
-//    data {[ category_list, banner_list, products_list
+public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.DeliveryAddressListener , GetHomeDetails.OnDataFetchedListener , GetProductsList.OnCategoryProductsFetchedListner {
 
     public static RecyclerView addressRecyclerView;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
 
     public static TextView HomeAddress;
+    public static ShimmerRecyclerView HomeShimmerProductRecyclerView;
     private FragmentHomeBinding binding;
 
     boolean BannerFetched = false;
@@ -90,19 +90,18 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
-        //Home Delevery Address + Banner Slider Automatically
         SetScreenViews();
-
-        //Home Delevery Address
         GetDeliveryAddressDetails();
-
         View root = binding.getRoot();
         return root;
     }
 
     public void SetScreenViews() {
+        binding.Search.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(),SearchPage.class));
+        });
         HomeAddress = binding.DeleverHomeLocation;
+        HomeShimmerProductRecyclerView = binding.HomeProductsRecycler;
         HomeAddress.setSelected(true);
         viewPager = binding.HomeBannerPager;
         binding.DeleverHomeLocation.setOnClickListener(v -> {
@@ -111,13 +110,16 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
                 chooseLocationDialog();
             }
         });
-        if (Variables.address.isEmpty() || Variables.address.equals("null")) {
+        Log.e(TAG, Variables.address );
+        if (Variables.address.equals("null")) {
             binding.DeleverHomeLocation.setText("Choose Location");
+            Log.e(TAG, Variables.address );
         }
-        else binding.DeleverHomeLocation.setText(Variables.address);
-
-// LinearLayout:----
-// Category 1st:-- Start under Home Delevery Location + Banner Slider Automatically ViewPager + Scroll Recyclerview Horizontal
+        else {
+            binding.DeleverHomeLocation.setText(Variables.address);
+            Log.e(TAG, Variables.address );
+            Log.e(TAG,"''''''" );
+        }
         getHomeDetails();
     }
 
@@ -197,8 +199,6 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         });
     }
 
-
-    //Buttom Sheet Popup Dialogue Address as it is like Amazon:--
     private void chooseLocationDialog() {
         // Create the bottom sheet dialog
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
@@ -206,9 +206,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.choose_location_bottom_dialog, null);
 
         addressRecyclerView = dialogView.findViewById(R.id.choose_location_bottom_dialog_recycler);
-
         GetDeliveryAddressDetails();
-
         TextView CurrentLocation = dialogView.findViewById(R.id.choose_location_bottom_dialog_choose_current_location);
         CurrentLocation.setOnClickListener(v -> {
             if (IsGpsEnabled())
@@ -238,10 +236,8 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
             addressRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
             addressRecyclerView.setAdapter(new Address_BottomSheet_Recycler_Adaptor(address_bottomSheet_recycler_adaptor_models,requireContext()));
         }
-        binding.DeleverHomeLocation.setText(Variables.address);
     }
 
-    //CATEGORY:---- 2nd(CircleImageView with Horizontal scroll)
     public void getHomeDetails()
     {
         binding.HomeCategoryRecyclerview.showShimmerAdapter();
@@ -253,11 +249,10 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         requireActivity().runOnUiThread(() -> {
             binding.HomeCategoryRecyclerview.hideShimmerAdapter();
             binding.HomeCategoryRecyclerview.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
-            binding.HomeCategoryRecyclerview.setAdapter(new HomeCategoryRecyclerAdaptor(homeCategoryModals));
+            binding.HomeCategoryRecyclerview.setAdapter(new HomeCategoryRecyclerAdaptor(homeCategoryModals,this));
         });
     }
 
-    //Banner Slider Automatically using ViewPager:-------
     private final Handler handler = new Handler();
     private final Runnable runnable = new Runnable() {
         public void run() {
@@ -272,6 +267,7 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
         }
 
     };
+
     @Override
     public void onBannerListFetched(List<HomeBannerModel> homeBannerModels) {
         requireActivity().runOnUiThread(() -> {
@@ -282,9 +278,6 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
 
     }
 
-
-//  GridLayoutManager(HomeProductsRecycler):---------------
-//    https://houseofspiritshyd.in/prakruthi/admin/api/getProductsList
 
     @Override
     public void onProductListFetched(List<HomeProductModel> homeProductModels) {
@@ -315,5 +308,21 @@ public class HomeFragment extends Fragment implements GetDeliveryAddressDetails.
     public void onPause() {
         super.onPause();
         handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void OnCategoryProductsFetched(List<HomeProductModel> homeProductModel) {
+        requireActivity().runOnUiThread(()->{
+            binding.HomeProductsRecycler.hideShimmerAdapter();
+            binding.HomeProductsRecycler.setLayoutManager(new GridLayoutManager(requireContext(),2));
+            binding.HomeProductsRecycler.setAdapter(new HomeProductAdaptor(homeProductModel));
+        });
+    }
+
+    @Override
+    public void OnGetProductsListApiGivesError(String error) { requireActivity().runOnUiThread(()->{
+        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
+        binding.HomeProductsRecycler.hideShimmerAdapter();
+    });
     }
 }
